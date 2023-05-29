@@ -1,14 +1,17 @@
-import { useState,useEffect } from 'react'
+import { useContext, useState} from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-
+import type { ContextType,APIContextType,User } from './Context/types.d.ts'
+import { Context, APIContext } from './Context/index.tsx'
 function App() {
-  useEffect(() => {
-    let f = fetch('http://localhost:3000/api/test')
-    console.log(f)
-  }, [])
-  const [count, setCount] = useState(0)
+
+
+  const {user,setUser} = useContext(Context) as ContextType;
+  const {getUsers,registerUser,loginUser,logout} = useContext(APIContext) as APIContextType;
+  const [users,setUsers] = useState<User[]>([]);
+
+
 
   return (
     <>
@@ -22,9 +25,27 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+        {user.username}
+        <button onClick={async () => {
+
+          let user = await registerUser({firstName:"braasdadasdn",lastName:"ett",email:"bran@dbrandoo.com",password:"1234"});
+          //@ts-ignore
+          let tryUser = await loginUser("brand@brando.com","1234");
+          let users = await getUsers();
+          setUsers(users);
+        }}>
         </button>
+        <button onClick={async () => {
+          let user = await logout();
+          setUser({id:null});
+        }} />
+        {users.length > 0 && users.map((user) => {
+          return <p>{user.id}{" "}
+            {user.firstName}
+          </p>
+        })
+
+        }
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
