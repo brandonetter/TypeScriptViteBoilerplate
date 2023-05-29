@@ -18,23 +18,7 @@ export class UserController {
         return userList
     }
 
-    async login(request: Request, response:Response, next:NextFunction): Promise<any> {
-        let { email, password } = request.body;
-        let user = await this.userRepository.findOne({
-            where: { email }
-        })
-        if (!user) {
-            return {Error:"unregistered user"}
-        }
-        let isPasswordCorrect = await bcrypt.compare(password, user.password)
-        if (!isPasswordCorrect) {
-            return {Error:"wrong password"}
-        }
-        let token = jwt.sign({user:user.email},process.env.SECRET)
-        response.cookie("token", token, { httpOnly: true })
-        return conformToUser(user)
 
-    }
     async one(request: Request, response: Response, next: NextFunction) {
         const id = parseInt(request.params.id)
 

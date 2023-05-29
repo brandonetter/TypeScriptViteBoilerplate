@@ -25,7 +25,8 @@ export type ContextType = {
 export type APIContextType = {
     getUsers: GetUsers,
     registerUser: RegisterUser,
-    loginUser: LoginUser
+    loginUser: LoginUser,
+    logout: Logout
 }
 
 // function types
@@ -36,3 +37,4 @@ export type SetUser = (user: User) => void
 export type GetUsers = () => Promise<User[]>
 export type RegisterUser = (user: User) => Promise<User>
 export type LoginUser = (user: User) => Promise<User>
+export type Logout = () => Promise<void>

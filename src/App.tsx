@@ -8,7 +8,7 @@ function App() {
 
 
   const {user,setUser} = useContext(Context) as ContextType;
-  const {getUsers,registerUser,loginUser} = useContext(APIContext) as APIContextType;
+  const {getUsers,registerUser,loginUser,logout} = useContext(APIContext) as APIContextType;
   const [users,setUsers] = useState<User[]>([]);
 
 
@@ -35,6 +35,10 @@ function App() {
           setUsers(users);
         }}>
         </button>
+        <button onClick={async () => {
+          let user = await logout();
+          setUser({id:null});
+        }} />
         {users.length > 0 && users.map((user) => {
           return <p>{user.id}{" "}
             {user.firstName}
