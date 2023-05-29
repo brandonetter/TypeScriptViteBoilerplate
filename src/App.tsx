@@ -1,14 +1,15 @@
-import { useContext} from 'react'
+import { useContext, useState} from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import type { ContextType,APIContextType } from './Context/types.d.ts'
+import type { ContextType,APIContextType,User } from './Context/types.d.ts'
 import { Context, APIContext } from './Context/index.tsx'
 function App() {
 
 
   const {user,setUser} = useContext(Context) as ContextType;
-  const {getUsers} = useContext(APIContext) as APIContextType;
+  const {getUsers,registerUser,loginUser} = useContext(APIContext) as APIContextType;
+  const [users,setUsers] = useState<User[]>([]);
 
 
 
@@ -26,12 +27,21 @@ function App() {
       <div className="card">
         {user.username}
         <button onClick={async () => {
-          setUser({
-            username: "123",
-          });
-          console.log(await getUsers())
+
+          let user = await registerUser({firstName:"braasdadasdn",lastName:"ett",email:"bran@dbrandoo.com",password:"1234"});
+          //@ts-ignore
+          let tryUser = await loginUser("brand@brando.com","1234");
+          let users = await getUsers();
+          setUsers(users);
         }}>
         </button>
+        {users.length > 0 && users.map((user) => {
+          return <p>{user.id}{" "}
+            {user.firstName}
+          </p>
+        })
+
+        }
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>

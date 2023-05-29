@@ -31,22 +31,26 @@ AppDataSource.initialize().then(async () => {
     app.listen(7777)
 
     // insert new users for test
-    await AppDataSource.manager.save(
-        AppDataSource.manager.create(User, {
-            firstName: "Timber",
-            lastName: "Saw",
-            age: 27
-        })
-    )
+    // await AppDataSource.manager.save(
+    //     AppDataSource.manager.create(User, {
+    //         firstName: "Timber",
+    //         lastName: "Saw",
+    //         email: "asd@email.com",
+    //         password: "asdasd"
 
-    await AppDataSource.manager.save(
-        AppDataSource.manager.create(User, {
-            firstName: "Phantom",
-            lastName: "Assassin",
-            age: 24
-        })
-    )
+    //     })
+    // )
 
-    console.log("Express server has started on port 3000. Open http://localhost:3000/users to see results")
+    // await AppDataSource.manager.save(
+    //     AppDataSource.manager.create(User, {
+    //         firstName: "Phantom",
+    //         lastName: "Assassin",
+    //         age: 24,
+    //         email: "asdasdasd@email.com",
+    //         password:"asdad"
+    //     })
+    // )
+
+    console.log("Express server has started on port 7777. Open http://localhost:7777/users to see results")
 
 }).catch(error => console.log(error))
