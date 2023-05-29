@@ -1,14 +1,16 @@
-import { useState,useEffect } from 'react'
+import { useContext} from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-
+import type { ContextType,APIContextType } from './Context/types.d.ts'
+import { Context, APIContext } from './Context/index.tsx'
 function App() {
-  useEffect(() => {
-    let f = fetch('http://localhost:3000/api/test')
-    console.log(f)
-  }, [])
-  const [count, setCount] = useState(0)
+
+
+  const {user,setUser} = useContext(Context) as ContextType;
+  const {getUsers} = useContext(APIContext) as APIContextType;
+
+
 
   return (
     <>
@@ -22,8 +24,13 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+        {user.username}
+        <button onClick={async () => {
+          setUser({
+            username: "123",
+          });
+          console.log(await getUsers())
+        }}>
         </button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
