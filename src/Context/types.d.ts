@@ -26,7 +26,8 @@ export type APIContextType = {
     getUsers: GetUsers,
     registerUser: RegisterUser,
     loginUser: LoginUser,
-    logout: Logout
+    logout: Logout,
+    updateAge: UpdateAge
 }
 
 // function types
@@ -36,5 +37,6 @@ export type SetUser = (user: User) => void
 // api types
 export type GetUsers = () => Promise<User[]>
 export type RegisterUser = (user: User) => Promise<User>
-export type LoginUser = (user: User) => Promise<User>
+export type LoginUser = (email:string,password:string) => Promise<User>
 export type Logout = () => Promise<void>
+export type UpdateAge = (age:number) => Promise<User>

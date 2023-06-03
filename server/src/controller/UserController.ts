@@ -56,6 +56,26 @@ export class UserController {
 
 
     }
+    async updateAge(request: Request, response: Response, next: NextFunction){
+        const { age } = request.body;
+        const id = request.body.user.id;
+        let user = await this.userRepository.findOneBy({id});
+
+        user.age = user.age+1;
+        console.log(user);
+        try{
+        let result = await this.userRepository.save({
+            ...user
+        });
+        return result;
+        }catch(err){
+            return {error:err}
+        }
+
+        // return result;
+
+
+    }
 
     async remove(request: Request, response: Response, next: NextFunction) {
         const id = parseInt(request.params.id)

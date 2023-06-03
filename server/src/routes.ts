@@ -7,6 +7,13 @@ export const Routes = [{
     controller: UserController,
     action: "all",
     middleware: AuthController.auth
+},{
+    method: "put",
+    route: "/users/age",
+    controller: UserController,
+    action: "updateAge",
+    middleware: AuthController.auth
+
 }, {
     method: "get",
     route: "/users/:id",
@@ -37,4 +44,9 @@ export const Routes = [{
     controller: AuthController,
     action: "logout",
 
+},{
+    method: "post",
+    route: "/users/auth",
+    controller: AuthController,
+    action: "auth",
 }]

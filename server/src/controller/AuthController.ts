@@ -57,4 +57,25 @@ export class AuthController{
         response.clearCookie("token")
         return {success:'logged out'}
     }
+    async auth(req:Request,res:Response, next:NextFunction):Promise<any>{
+        const token = req.cookies.token
+        if (!token) {
+            return ({ "message": "Auth Error" })
+        }
+        // verify token
+        try {
+            const decoded = jwt.verify(token, process.env.SECRET)
+            req.body.email = decoded.user
+            let user = await AppDataSource.getRepository(User).findOne({
+                where: { email: decoded.user }
+            });
+            if (!user) {
+                return ({ message: "Auth Error" })
+            }
+            return req.body.user = conformToUser(user)
+        } catch (e) {
+            console.error(e)
+            return ({ message: "Invalid Token" })
+        }
+    }
 }
