@@ -7,6 +7,7 @@ export type User = {
     password?: string | null
     firstName?: string | null
     lastName?: string | null
+    status?: string | null
 }
 
 
@@ -27,7 +28,8 @@ export type APIContextType = {
     registerUser: RegisterUser,
     loginUser: LoginUser,
     logout: Logout,
-    updateAge: UpdateAge
+    updateAge: UpdateAge,
+    allUsers: AllUsers
 }
 
 // function types
@@ -40,3 +42,4 @@ export type RegisterUser = (user: User) => Promise<User>
 export type LoginUser = (email:string,password:string) => Promise<User>
 export type Logout = () => Promise<void>
 export type UpdateAge = (age:number) => Promise<User>
+export type AllUsers = () => Promise<User[]>

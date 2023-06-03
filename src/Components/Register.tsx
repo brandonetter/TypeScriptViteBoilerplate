@@ -7,7 +7,8 @@ function Register(){
     let [password,setPassword] = useState<string>('');
     let [firstName,setFirstName] = useState<string>('');
     let [lastName,setLastName] = useState<string>('');
-    let {user,setUser} = useContext(Context) as ContextType;
+    let [status,setStatus] = useState<string>('student');
+    let {user} = useContext(Context) as ContextType;
     let {registerUser} = useContext(APIContext) as APIContextType;
 
     async function registerButton(){
@@ -15,7 +16,8 @@ function Register(){
             email,
             password,
             firstName,
-            lastName
+            lastName,
+            status
         }
         let res = await registerUser(user);
         console.log(res);
@@ -28,6 +30,10 @@ function Register(){
             <input type="text" placeholder="last name" value={lastName} onChange={(e)=>setLastName(e.target.value)}/>
             <input type="text" placeholder="email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
             <input type="password" placeholder="password" value={password} onChange={e=>setPassword(e.target.value)} />
+            <select onChange={(e)=>setStatus(e.target.value)}>
+                <option value="student">Student</option>
+                <option value="instructor">Instructor</option>
+            </select>
             <button onClick={()=>{
                 registerButton();
             }}>Login</button>

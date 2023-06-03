@@ -1,7 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, BeforeUpdate } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, BeforeUpdate,ManyToMany } from "typeorm"
 import { AppDataSource } from "../data-source"
 import { IsEmail,Max,MaxLength,Min,MinLength,validate } from "class-validator"
 import * as bcrypt from "bcrypt"
+import { Program } from "./Program"
+
+type Status = "instructor" | "student"
+
 @Entity()
 export class User {
 
@@ -21,6 +25,12 @@ export class User {
     @Column({ unique: true })
     @IsEmail()
     email: string
+
+    @Column()
+    status: Status
+
+    @ManyToMany(() => Program, program => program.users)
+    programs: Program[]
 
     @Column()
     password: string

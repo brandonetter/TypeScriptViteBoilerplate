@@ -82,6 +82,12 @@ useEffect(() => {
         return data;
     }
 
+    async function allUsers(): Promise<User[]> {
+        const res = await fetch('http://localhost:3000/api/users/all');
+        const data = await res.json();
+        return data;
+    };
+
     async function loginUser(email:string, password:string): Promise<User> {
         const res = await fetch('http://localhost:3000/api/users/login', {
             method: 'POST',
@@ -102,7 +108,7 @@ useEffect(() => {
             count,setCount
         }
         }>
-        <APIContext.Provider value={{getUsers,registerUser,loginUser,logout,updateAge}}>
+        <APIContext.Provider value={{getUsers,registerUser,loginUser,logout,updateAge,allUsers}}>
         {children}
         </APIContext.Provider>
     </Context.Provider>

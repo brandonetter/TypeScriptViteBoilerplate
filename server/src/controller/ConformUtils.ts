@@ -6,5 +6,6 @@ export const conformToUser = (user: User): User => {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
+        status: user.status,
     }
 }

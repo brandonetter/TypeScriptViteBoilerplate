@@ -6,6 +6,7 @@ import { conformToUser } from "./ConformUtils"
 import * as bcrypt from "bcrypt"
 import * as jwt from "jsonwebtoken"
 import * as dotenv from "dotenv";
+import { Json } from "sequelize/types/utils"
 
 dotenv.config();
 export class UserController {
@@ -30,25 +31,30 @@ export class UserController {
         if (!user) {
             return "unregistered user"
         }
-        return user
+        return conformToUser(user);
     }
 
-    async save(request: Request, response: Response, next: NextFunction) {
-        const { firstName, lastName,email,password } = request.body;
+    async save(request: Request, response: Response, next: NextFunction): Promise<UserType | Err> {
+        const { firstName, lastName,email,password,status } = request.body;
+
+        if(status !== "instructor" && status !== "student"){
+            return {message:"status must be instructor or student"}
+        }
 
         const user = Object.assign(new User(), {
             firstName,
             lastName,
 
             email,
-            password
+            password,
+            status
         })
 
         try{
             let result = await this.userRepository.save(user)
-            return result
+            return conformToUser(result);
         }catch(err){
-            return {error:err}
+            return {message:err}
         }
 
 
@@ -56,7 +62,7 @@ export class UserController {
 
 
     }
-    async updateAge(request: Request, response: Response, next: NextFunction){
+    async updateAge(request: Request, response: Response, next: NextFunction): Promise<UserType | Err>{
         const { age } = request.body;
         const id = request.body.user.id;
         let user = await this.userRepository.findOneBy({id});
@@ -69,7 +75,7 @@ export class UserController {
         });
         return result;
         }catch(err){
-            return {error:err}
+            return {message:err}
         }
 
         // return result;
@@ -77,7 +83,7 @@ export class UserController {
 
     }
 
-    async remove(request: Request, response: Response, next: NextFunction) {
+    async remove(request: Request, response: Response, next: NextFunction): Promise<string> {
         const id = parseInt(request.params.id)
 
         let userToRemove = await this.userRepository.findOneBy({ id })
