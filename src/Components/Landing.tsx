@@ -5,13 +5,14 @@ import { Context } from "../Context/index.tsx";
 import type { ContextType } from "../Context/types.d.ts";
 import UpdateAge from "./UpdateAge.tsx";
 import AllUsers from "./AllUsers.tsx";
+import Header from "./Header/index.tsx";
 function Landing(){
     const [page,setPage] = useState('landing');
     const {user} = useContext(Context) as ContextType;
 
     return(
-        <div>
-            <h1> Landing Page </h1>
+        <>
+            <Header />
             {user.id !== -1
             && user.id==null && <>
 
@@ -28,7 +29,7 @@ function Landing(){
             {user.id !==-1 && user.id !== null && <h1>Logged in as {user.email}<UpdateAge /><AllUsers /></h1>}
 
 
-        </div>
+        </>
     )
 }
 export default Landing;

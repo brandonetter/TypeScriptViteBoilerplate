@@ -21,6 +21,8 @@ export type ContextType = {
     setUser: SetUser
     count: Count
     setCount: SetCount
+    modal: Modal
+    setModal: SetModal
 }
 // context types for APIContext
 export type APIContextType = {
@@ -35,6 +37,10 @@ export type APIContextType = {
 // function types
 export type SetCount = (count: number) => void
 export type SetUser = (user: User) => void
+export type SetModal = (modal: Modal) => void
+export type Modal = {
+    login: boolean,
+}
 
 // api types
 export type GetUsers = () => Promise<User[]>

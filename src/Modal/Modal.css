@@ -1,0 +1,15 @@
+.modal{
+    position:absolute;
+    top:0;
+    left:0;
+    display:flex;
+
+}
+.modal-login{
+    width:100vw;
+    height:100vh;
+    background-color: #00000099;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -7,7 +7,9 @@ const Provider = ({children}:{children: ReactNode}) => {
 
     const [user, setUser] = useState<User>({id: -1});
     const [count, setCount] = useState(0);
-
+    const [modal, setModal] = useState({
+        login: false,
+    });
 useEffect(() => {
         if(user.id==-1){
             auth().then((data) => {
@@ -105,7 +107,8 @@ useEffect(() => {
     return <Context.Provider value={
         {
             user,setUser,
-            count,setCount
+            count,setCount,
+            modal,setModal
         }
         }>
         <APIContext.Provider value={{getUsers,registerUser,loginUser,logout,updateAge,allUsers}}>

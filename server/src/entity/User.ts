@@ -40,14 +40,12 @@ export class User {
     age: number
 
     @BeforeInsert()
-    @BeforeUpdate()
     async hashPassword(): Promise<void> {
         this.password = await bcrypt.hash(this.password, 10)
         // this.password = hash;
     }
 
     @BeforeInsert()
-    @BeforeUpdate()
     async checkValid(): Promise<void> {
         let errors_ = await validate(this)
         let errors = []

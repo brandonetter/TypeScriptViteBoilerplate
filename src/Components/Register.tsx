@@ -1,4 +1,4 @@
-import type { ContextType,APIContextType,User } from '../Context/types.d.ts'
+import type { ContextType,APIContextType,User } from '../Context/types.ts'
 import { Context, APIContext } from '../Context/index.tsx'
 import { useContext, useState} from 'react'
 

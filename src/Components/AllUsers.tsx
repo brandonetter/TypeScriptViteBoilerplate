@@ -1,5 +1,5 @@
 
-import type {APIContextType,User } from '../Context/types.d.ts'
+import type {APIContextType,User } from '../Context/types.ts'
 import { APIContext } from '../Context/index.tsx'
 import { useState,useContext,useEffect} from 'react'
 

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { APIContext } from '../Context/index.tsx';
-import type { APIContextType } from '../Context/types.d.ts';
+import type { APIContextType } from '../Context/types.ts';
 import { useContext } from 'react';
 
 export default function UpdateAge() {
